@@ -1,0 +1,4 @@
+[
+  { "UserId": 101, "Name": "Ava Chen", "Region": "NA", "Active": true },
+  { "UserId": 102, "Name": "Liam Patel", "Region": "EMEA", "Active": false }
+]

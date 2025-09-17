@@ -1,0 +1,4 @@
+[
+  { "Login": "rsmith", "Dept": "Ops", "Enabled": true },
+  { "Login": "akumar", "Dept": "Finance", "Enabled": true }
+]

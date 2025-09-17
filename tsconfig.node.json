@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node", "vite/client"]   // ✅ helps Vite + plugins resolve
+  },
+  "include": ["vite.config.ts"]
+}
