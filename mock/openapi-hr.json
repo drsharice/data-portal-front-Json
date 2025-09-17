@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "HR API",
+    "version": "1.0.0",
+    "description": "Mock HR API for employee and payroll data."
+  },
+  "paths": {
+    "/employees": {
+      "get": {
+        "summary": "Get all employees",
+        "responses": {
+          "200": {
+            "description": "List of employees",
+            "content": {
+              "application/json": {
+                "example": [{ "id": 1, "name": "Jane Doe", "role": "Analyst" }]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payroll": {
+      "get": {
+        "summary": "Get payroll summary",
+        "responses": {
+          "200": {
+            "description": "Payroll data",
+            "content": {
+              "application/json": {
+                "example": { "total": 100000, "currency": "USD" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

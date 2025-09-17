@@ -1,0 +1,4 @@
+[
+  { "EmpId": 2001, "FirstName": "Jordan", "LastName": "Lee", "Title": "Analyst" },
+  { "EmpId": 2002, "FirstName": "Sam", "LastName": "Ng", "Title": "Engineer" }
+]
