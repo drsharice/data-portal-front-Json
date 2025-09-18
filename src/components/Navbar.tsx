@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import GlobalSearch from "./GlobalSearch"; // adjust path if needed
 
 function Navbar() {
   return (
@@ -65,19 +66,9 @@ function Navbar() {
           </NavLink>
         </div>
 
-        {/* Search bar + guest */}
+        {/* Global search + guest */}
         <div className="flex items-center space-x-3">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="rounded px-3 py-1 text-sm text-white bg-gray-800 border border-gray-700 focus:outline-none"
-          />
-          <button
-            type="button"
-            className="bg-red-600 text-white px-3 py-1 text-sm rounded hover:brightness-110"
-          >
-            Search
-          </button>
+          <GlobalSearch placeholder="Search..." variant="navbar" />
           <span className="text-sm text-gray-300">Welcome, Guest</span>
         </div>
       </div>
