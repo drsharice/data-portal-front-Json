@@ -10,7 +10,7 @@ export default function Cart() {
     cart.map((item) => ({
       id: item.id,
       name: item.name,
-      description: item.description || "",
+      description: item.description || "No description available",
       lob: "",
       justification: "",
     }))
@@ -55,7 +55,6 @@ export default function Cart() {
     setTimeout(() => navigate("/"), 2000);
   };
 
-  // ✅ Thank-you message
   if (submitted) {
     return (
       <section className="pt-24 px-4 md:px-8 flex justify-center items-center min-h-screen">
@@ -82,11 +81,11 @@ export default function Cart() {
   return (
     <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
       <div className="mx-auto w-full max-w-[1000px] bg-white text-black rounded-2xl shadow-2xl ring-1 ring-gray-200 p-6 space-y-6 relative">
-        {/* Exit button (does NOT clear cart) */}
+        {/* Exit button */}
         <button
           onClick={() => navigate("/")}
           className="absolute top-3 right-3 text-xl text-gray-600 hover:text-red-600"
-          title="Close"
+          title="Close without submitting"
         >
           ✕
         </button>
@@ -102,9 +101,9 @@ export default function Cart() {
               {/* Dataset name + description */}
               <div>
                 <h2 className="text-lg font-semibold">{item.name}</h2>
-                {item.description && (
-                  <p className="text-sm text-gray-600">{item.description}</p>
-                )}
+                <p className="text-sm text-gray-600">
+                  {item.description || "No description available"}
+                </p>
               </div>
 
               {/* LOB Dropdown */}
@@ -134,7 +133,7 @@ export default function Cart() {
               <button
                 onClick={() => removeItem(item.id)}
                 className="absolute top-3 right-3 text-gray-500 hover:text-red-600"
-                title="Remove dataset"
+                title="Remove this dataset"
               >
                 🗑
               </button>
@@ -148,6 +147,7 @@ export default function Cart() {
             <button
               onClick={handleSubmit}
               className="flex-1 bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700"
+              title="Submit your request"
             >
               Submit Request
             </button>
@@ -155,6 +155,7 @@ export default function Cart() {
           <button
             onClick={clearAll}
             className="flex-1 bg-gray-200 text-black font-semibold py-2 rounded-lg hover:bg-gray-300"
+            title="Clear all datasets from cart"
           >
             Clear All
           </button>

@@ -123,6 +123,7 @@ export default function Catalog() {
             <button
               onClick={() => navigate("/cart")}
               className="relative inline-flex items-center bg-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 text-black font-semibold"
+              title="Checkout"
             >
               🛒
               {cart.length > 0 && (
@@ -205,9 +206,14 @@ export default function Catalog() {
                   </ul>
                   <button
                     onClick={() =>
-                      addToCart({ id: selected.id, name: selected.name })
+                      addToCart({
+                        id: selected.id,
+                        name: selected.name,
+                        description: selected.description,
+                      })
                     }
                     className="mt-3 rounded-lg bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:brightness-110"
+                    title="Add to Cart"
                   >
                     Add to Cart
                   </button>
@@ -265,11 +271,15 @@ export default function Catalog() {
                           {d.category}
                         </span>
 
-                        {/* Card Cart Button (yellow only) */}
+                        {/* Card Cart Button */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            addToCart({ id: d.id, name: d.name });
+                            addToCart({
+                              id: d.id,
+                              name: d.name,
+                              description: d.description,
+                            });
                           }}
                           className="absolute top-3 right-3 bg-yellow-400 text-black font-bold rounded-full p-2 hover:bg-yellow-500"
                           title="Add to Cart"
