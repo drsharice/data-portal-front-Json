@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bloomberg",
+    "name": "Bloomberg",
+    "schema": "Finance",
+    "category": "Finance",
+    "description": "Market and trading datasets",
+    "lastUpdated": "2025-08-01",
+    "size": "2.3GB",
+    "columns": [
+      { "name": "Ticker", "type": "string", "description": "Stock symbol" },
+      { "name": "Price", "type": "decimal", "description": "Last trade price" }
+    ],
+    "popular": true
+  },
+  {
+    "id": "hr",
+    "name": "HR",
+    "schema": "People",
+    "category": "HR",
+    "description": "Employee and organization data",
+    "lastUpdated": "2025-08-10",
+    "size": "1.1GB",
+    "columns": [
+      { "name": "EmployeeID", "type": "int", "description": "Unique identifier" },
+      { "name": "Department", "type": "string", "description": "Org department" }
+    ],
+    "popular": true
+  },
+  {
+    "id": "m365",
+    "name": "M365",
+    "schema": "Productivity",
+    "category": "Mobility",
+    "description": "Office 365 usage metrics",
+    "lastUpdated": "2025-08-15",
+    "size": "750MB",
+    "columns": [
+      { "name": "UserID", "type": "string", "description": "Unique user key" },
+      { "name": "LoginCount", "type": "int", "description": "Total logins" }
+    ],
+    "popular": true
+  }
+]
