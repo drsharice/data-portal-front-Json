@@ -1,0 +1,20 @@
+[
+  {
+    "id": "hr-api",
+    "name": "HR API",
+    "category": "HR",
+    "description": "Endpoints for employee and organization data",
+    "lastUpdated": "2025-08-01",
+    "popular": true,
+    "type": "api"
+  },
+  {
+    "id": "finance-api",
+    "name": "Finance API",
+    "category": "Finance",
+    "description": "Financial data service endpoints",
+    "lastUpdated": "2025-08-05",
+    "popular": true,
+    "type": "api"
+  }
+]
