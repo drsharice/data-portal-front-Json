@@ -1,0 +1,22 @@
+{
+  "reports": [
+    {
+      "key": "HR_Devices",
+      "label": "HR Devices",
+      "description": "Below is a sample of the HR device inventory report. Use the search bar to filter employees, or click the button above to see the full report in Power BI.",
+      "powerbi": "https://app.powerbi.com/"
+    },
+    {
+      "key": "Finance_Budget",
+      "label": "Finance Budget",
+      "description": "Sample Finance Budget report showing department budgets and expenditures.",
+      "powerbi": "https://app.powerbi.com/groups/finance"
+    },
+    {
+      "key": "IT_Software",
+      "label": "IT Software Inventory",
+      "description": "Sample IT Software Inventory report showing software usage by department.",
+      "powerbi": "https://app.powerbi.com/groups/it"
+    }
+  ]
+}

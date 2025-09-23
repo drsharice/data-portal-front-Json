@@ -1,0 +1,7 @@
+[
+  { "id": 1, "department": "Engineering", "software": "Visual Studio Code", "licenses": 120 },
+  { "id": 2, "department": "Sales", "software": "Salesforce", "licenses": 80 },
+  { "id": 3, "department": "Marketing", "software": "Adobe Creative Cloud", "licenses": 50 },
+  { "id": 4, "department": "HR", "software": "Workday", "licenses": 40 },
+  { "id": 5, "department": "Finance", "software": "SAP", "licenses": 60 }
+]
