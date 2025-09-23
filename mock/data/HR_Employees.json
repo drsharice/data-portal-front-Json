@@ -1,4 +1,19 @@
 [
   { "EmpId": 2001, "FirstName": "Jordan", "LastName": "Lee", "Title": "Analyst" },
-  { "EmpId": 2002, "FirstName": "Sam", "LastName": "Ng", "Title": "Engineer" }
+  { "EmpId": 2002, "FirstName": "Sam", "LastName": "Ng", "Title": "Engineer" },
+  { "EmpId": 2003, "FirstName": "Randy", "LastName": "Smith", "Title": "Product Manager" },
+  { "EmpId": 2004, "FirstName": "Akura", "LastName": "Kumar", "Title": "Scrum Master" },
+  { "EmpId": 2005, "FirstName": "Jasmine", "LastName": "Younge", "Title": "Lawyer" },
+  { "EmpId": 2006, "FirstName": "Lawrence", "LastName": "Shreeves", "Title": "Principal Architect" },
+  { "EmpId": 2007, "FirstName": "Tanya", "LastName": "Collins", "Title": "Technical Director" },
+  { "EmpId": 2008, "FirstName": "Anita", "LastName": "Jenkins", "Title": "Product Owner" },
+  { "EmpId": 2009, "FirstName": "Hakeem", "LastName": "Tafarri", "Title": "Analyst" },
+  { "EmpId": 2010, "FirstName": "Gregory", "LastName": "Raymond", "Title": "Engineer" },
+  { "EmpId": 2011, "FirstName": "Fern", "LastName": "Williams", "Title": "Product Manager" },
+  { "EmpId": 2012, "FirstName": "Danielle", "LastName": "Thomas", "Title": "Scrum Master" },
+  { "EmpId": 2013, "FirstName": "Selina", "LastName": "Gomez", "Title": "Lawyer" },
+  { "EmpId": 2014, "FirstName": "Usenia", "LastName": "Perez", "Title": "Principal Architect" },
+  { "EmpId": 2015, "FirstName": "Lisa", "LastName": "Wilson", "Title": "Technical Director" },
+  { "EmpId": 2016, "FirstName": "Terry", "LastName": "Shaw", "Title": "Product Owner" }
 ]
+
