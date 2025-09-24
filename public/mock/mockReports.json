@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sales-report",
+    "name": "Sales Performance Report",
+    "category": "Finance",
+    "description": "Quarterly sales performance metrics",
+    "lastUpdated": "2025-08-10",
+    "popular": true,
+    "type": "report"
+  },
+  {
+    "id": "hr-report",
+    "name": "HR Headcount Report",
+    "category": "HR",
+    "description": "Monthly headcount and attrition details",
+    "lastUpdated": "2025-08-15",
+    "popular": true,
+    "type": "report"
+  }
+]

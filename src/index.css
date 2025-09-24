@@ -1,0 +1,160 @@
+/* ===========================
+   Tailwind & Base skin
+   =========================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Brand tokens ===== */
+:root{
+  --brand-red:#D71E28;
+  --brand-black:#141414;
+  --grey-dark:#787070;
+  --grey-mid:#B5ADAD;
+  --grey-light:#F4F0ED;
+  --yellow-4:#FFF7E2;
+  --yellow-3:#FFF0C8;
+  --yellow: #FFCD41;
+
+  /* Vibrant red tuning */
+  --red1:#FF2D36;   /* bright edge */
+  --red2:#D71E28;   /* brand */
+  --red3:#B2161E;   /* rich mid */
+  --red4:#8F1117;   /* deep */
+}
+
+/* ===== Base page ===== */
+html,body,#root{height:100%}
+/* Global page skin: black background everywhere */
+body {
+  background-color: #141414;  /* brand black */
+  color: #F4F0ED;             /* light grey default text */
+}
+
+/* ===========================
+   Hero helpers
+   =========================== */
+.hero-border{border-color:var(--grey-mid)}
+.hero-vh{min-height:100vh}
+@supports(height:100svh){.hero-vh{min-height:100svh}}
+
+/* Lighter vignette so the red shows through strongly */
+.hero-vignette{
+  background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.45) 100%);
+}
+
+/* ===========================
+   One-time entrances
+   =========================== */
+@keyframes slowIn{
+  0%{transform:translate3d(0,4vh,0) scale(.985);opacity:0}
+  100%{transform:translate3d(0,0,0) scale(1);opacity:var(--shape-opacity,.95)}
+}
+@keyframes ringRise{
+  0%{transform:translate(-50%,10vh);opacity:0}
+  100%{transform:translate(-50%,0);opacity:.98}
+}
+@keyframes glassIn{
+  0%{transform:translate3d(0,14px,0) scale(.995);opacity:0}
+  100%{transform:translate3d(0,0,0) scale(1);opacity:1}
+}
+
+/* ===========================
+   Shapes (circle left, square right, triangle bottom-right)
+   =========================== */
+.hero-shapes{position:absolute;inset:0;pointer-events:none;z-index:0}
+
+.hero-shape{
+  position:absolute;will-change:transform,opacity;
+  --shape-opacity:.95; /* ← punchy red */
+  animation:slowIn 1200ms cubic-bezier(.2,.65,.22,1) both;
+  opacity:0;
+  /* vibrant red gradient */
+  background:linear-gradient(135deg, var(--red1) 0%, var(--red2) 40%, var(--red3) 75%, var(--red4) 100%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 60px 180px rgba(215,30,40,.42),
+    0 0 140px rgba(215,30,40,.30) inset;
+}
+
+/* Positions / sizes */
+.hero-shape--circle-left{
+  width:34vw;height:34vw;
+  left:6vw;top:26vh;
+  border-radius:9999px;
+}
+.hero-shape--square-right{
+  width:30vw;height:20vw;
+  right:9vw;top:24vh;
+  border-radius:16px;
+}
+
+/* Bottom-right triangle (fills the corner) */
+.hero-shape--triangle-br{
+  width:32vw;height:32vw;
+  right:-4vw;bottom:-4vw;
+  background:linear-gradient(135deg, var(--red2) 0%, var(--red3) 70%, var(--red4) 100%);
+  clip-path:polygon(100% 0, 100% 100%, 0 100%); /* crisp right-bottom corner */
+  border-radius:0;
+}
+
+/* staggers */
+.hero-delay-0{animation-delay:120ms}
+.hero-delay-1{animation-delay:260ms}
+.hero-delay-2{animation-delay:380ms}
+
+/* ===========================
+   Bottom ring (open → close, no start dot)
+   =========================== */
+.hero-ring{
+  position:absolute;
+  width:26vw;height:26vw;
+  left:50%;bottom:-8vh;
+  transform:translate(-50%,0);
+  filter:drop-shadow(0 70px 160px rgba(215,30,40,.34));
+  opacity:0;
+  animation:ringRise 1400ms cubic-bezier(.2,.65,.22,1) 320ms both;
+  pointer-events:none;
+  z-index:0;
+}
+.hero-ring__stroke{
+  stroke:var(--red2);
+  stroke-width:8;
+  fill:transparent;
+  stroke-linecap:round;
+  stroke-dasharray:0 1;        /* start invisible */
+  animation: ringDash 1400ms cubic-bezier(.2,.65,.22,1) 320ms both;
+}
+@keyframes ringDash{to{stroke-dasharray:1 0}}
+
+/* ===========================
+   Glass card (behind DATA PORTAL)
+   =========================== */
+.glass-card{
+  position:relative;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.45),
+    0 0 0 1px rgba(0,0,0,.35) inset;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  animation:glassIn 420ms ease-out both;
+}
+.glass-card::before{
+  content:"";
+  position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.06));
+  pointer-events:none;
+}
+
+/* ===========================
+   Accessibility
+   =========================== */
+@media (prefers-reduced-motion:reduce){
+  .hero-shape{animation:none;opacity:var(--shape-opacity,.95)}
+  .hero-ring{animation:none;opacity:.98;transform:translate(-50%,0)}
+  .hero-ring__stroke{animation:none;stroke-dasharray:1 0}
+  .glass-card{animation:none}
+}

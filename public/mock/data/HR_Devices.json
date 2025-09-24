@@ -1,0 +1,13 @@
+[
+  { "id": 1, "name": "Alice Johnson", "department": "HR", "device": "iPhone 13", "location": "New York" },
+  { "id": 2, "name": "Bob Smith", "department": "Finance", "device": "Samsung Galaxy S21", "location": "Chicago" },
+  { "id": 3, "name": "Charlie Davis", "department": "Engineering", "device": "iPhone 14", "location": "Boston" },
+  { "id": 4, "name": "Dana Lee", "department": "Engineering", "device": "Google Pixel 7", "location": "Austin" },
+  { "id": 5, "name": "Ethan Clark", "department": "Sales", "device": "iPhone 13", "location": "Seattle" },
+  { "id": 6, "name": "Fiona Green", "department": "Marketing", "device": "Samsung Galaxy S22", "location": "Miami" },
+  { "id": 7, "name": "George Hall", "department": "Support", "device": "iPhone 14", "location": "Denver" },
+  { "id": 8, "name": "Hannah White", "department": "Finance", "device": "Google Pixel 7", "location": "San Diego" },
+  { "id": 9, "name": "Ian Miller", "department": "Sales", "device": "Samsung Galaxy S21", "location": "Dallas" },
+  { "id": 10, "name": "Jenna Brown", "department": "Engineering", "device": "iPhone 13", "location": "Atlanta" }
+ 
+]

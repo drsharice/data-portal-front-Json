@@ -1,0 +1,18 @@
+[
+  { "Login": "rsmith", "Dept": "Ops", "Enabled": true },
+  { "Login": "akumar", "Dept": "Finance", "Enabled": true },
+  { "Login": "jyoung", "Dept": "HR", "Enabled": true },
+  { "Login": "tbrowne", "Dept": "NA", "Enabled": false },
+  { "Login": "lShreeves", "Dept": "Engineering", "Enabled": true },
+  { "Login": "tcollins", "Dept": "Sales", "Enabled": true },
+  { "Login": "sfontaine", "Dept": "Marketing", "Enabled": true },
+  { "Login": "ajenkins", "Dept": "NA", "Enabled": false },
+  { "Login": "bsimmons", "Dept": "Ops", "Enabled": true },
+  { "Login": "cwilliams", "Dept": "Finance", "Enabled": true },
+  { "Login": "dsaunders", "Dept": "HR", "Enabled": true },
+  { "Login": "ehill", "Dept": "NA", "Enabled": false },
+  { "Login": "dsmith", "Dept": "Engineering", "Enabled": true },
+  { "Login": "fwilliams", "Dept": "Sales", "Enabled": true },
+  { "Login": "graymond", "Dept": "Marketing", "Enabled": true },
+  { "Login": "htafarri", "Dept": "NA", "Enabled": false }
+]
