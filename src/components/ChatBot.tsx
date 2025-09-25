@@ -9,11 +9,8 @@ const ChatBot: React.FC = () => {
 
   const handleSend = () => {
     if (!input.trim()) return;
-
-    // Add user message
     setMessages([...messages, { sender: "user", text: input }]);
 
-    // Simple rules-based response
     let response = "🤖 Sorry, I don’t have an answer for that yet.";
     if (input.toLowerCase().includes("dataset")) {
       response = "✅ You can explore datasets in the Catalog page.";
@@ -23,7 +20,6 @@ const ChatBot: React.FC = () => {
       response = "Here’s what I can do:\n- Show datasets 📊\n- Point to APIs 🔗\n- Answer FAQs ❓";
     }
 
-    // Add bot response
     setTimeout(() => {
       setMessages(prev => [...prev, { sender: "bot", text: response }]);
     }, 500);
@@ -37,7 +33,7 @@ const ChatBot: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-5 right-5 bg-yellow-400 text-black font-semibold px-4 py-2 rounded-full shadow-lg border border-black hover:bg-yellow-500 transition"
+          className="fixed bottom-5 right-5 z-50 bg-yellow-400 text-black font-semibold px-4 py-2 rounded-full shadow-lg border border-black hover:bg-yellow-500 transition"
         >
           💬 Can I help you?
         </button>
@@ -45,7 +41,9 @@ const ChatBot: React.FC = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-5 right-5 w-80 bg-white rounded-lg shadow-xl border border-gray-300 flex flex-col">
+        <div
+          className="fixed bottom-5 right-5 z-50 w-80 bg-white rounded-lg shadow-xl border border-gray-300 flex flex-col transform transition-transform duration-300 ease-out animate-slideUp"
+        >
           {/* Header */}
           <div className="bg-yellow-400 text-black font-semibold p-3 rounded-t-lg flex justify-between items-center border-b border-black">
             <span>Portal Helper (Beta)</span>

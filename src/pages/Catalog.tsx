@@ -259,7 +259,7 @@ export default function Catalog() {
                         id: selected.id,
                         name: selected.name,
                         description: selected.description,
-                        type: selected.type,
+                    
                       })
                     }
                     className="mt-3 rounded-lg bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:brightness-110"
@@ -329,7 +329,7 @@ export default function Catalog() {
                               id: d.id,
                               name: d.name,
                               description: d.description,
-                              type: d.type,
+                              
                             });
                           }}
                           className="absolute top-3 right-3 bg-yellow-400 text-black font-bold rounded-full p-2 hover:bg-yellow-500"
