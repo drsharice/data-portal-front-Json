@@ -1,0 +1,22 @@
+.logo-e {
+  position: relative;
+  width: 60px;
+  height: 100px;
+  background: none;
+}
+
+.logo-e::before,
+.logo-e::after,
+.logo-e div {
+  content: "";
+  display: block;
+  height: 20px;
+  width: 100%;
+  background: white;
+  margin-bottom: 20px;
+}
+
+.logo-e::after {
+  transform: skewX(-20deg);
+  width: 70%;
+}

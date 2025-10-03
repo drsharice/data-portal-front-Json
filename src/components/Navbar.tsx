@@ -1,18 +1,19 @@
 import { NavLink, Link } from "react-router-dom";
 import GlobalSearch from "./GlobalSearch";
 import { useState } from "react";
+import LogoE from "../assets/logo-e-red.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 bg-black text-white shadow-md">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5">
         
-        {/* Logo with red square */}
+        {/* Logo with e-icon */}
         <div className="flex items-center space-x-2">
-          <div className="h-4 w-4 bg-red-600 rounded-sm"></div>
-          <div className="font-bold text-lg text-white">Data Instrumentation</div>
+          <img src={LogoE} alt="Logo" className="h-8 w-8" />
+          <div className="font-bold text-lg text-white">WT - Data Edge</div>
         </div>
 
         {/* Navigation links */}
@@ -27,6 +28,7 @@ function Navbar() {
           >
             Home
           </NavLink>
+
           <NavLink
             to="/data"
             className={({ isActive }) =>
@@ -37,6 +39,7 @@ function Navbar() {
           >
             Data
           </NavLink>
+
           <NavLink
             to="/apis"
             className={({ isActive }) =>
@@ -47,16 +50,8 @@ function Navbar() {
           >
             API
           </NavLink>
-          <NavLink
-            to="/catalog"
-            className={({ isActive }) =>
-              `hover:text-yellow-400 ${
-                isActive ? "text-yellow-400 border-b-2 border-yellow-400" : ""
-              }`
-            }
-          >
-            Catalog
-          </NavLink>
+
+          {/* Report before Catalog */}
           <NavLink
             to="/analytics"
             className={({ isActive }) =>
@@ -66,6 +61,17 @@ function Navbar() {
             }
           >
             Report
+          </NavLink>
+
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 ${
+                isActive ? "text-yellow-400 border-b-2 border-yellow-400" : ""
+              }`
+            }
+          >
+            Catalog
           </NavLink>
         </div>
 
