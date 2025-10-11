@@ -1,0 +1,44 @@
+[
+  {
+    "Computer_Name": "NYC-SRV-001",
+    "Canonical_Name": "corp.local/Servers/NYC/NYC-SRV-001",
+    "Distinguished_Name": "CN=NYC-SRV-001,OU=Servers,OU=NYC,DC=corp,DC=local",
+    "DNS_Host_Name": "nyc-srv-001.corp.local",
+    "Operating_System": "Windows Server 2019 Standard",
+    "Last_Logon_Date": "2025-10-08",
+    "Password_Last_Set": "2025-08-22",
+    "Enabled": "True",
+    "Created_On": "2022-03-14",
+    "Locked_Out": "False",
+    "Object_SID": "S-1-5-21-2439187742-2334148987-2848374178-1101",
+    "Member_Of": "CN=Domain Controllers,OU=Groups,DC=corp,DC=local"
+  },
+  {
+    "Computer_Name": "LON-WS-014",
+    "Canonical_Name": "corp.local/Workstations/LON/LON-WS-014",
+    "Distinguished_Name": "CN=LON-WS-014,OU=Workstations,OU=LON,DC=corp,DC=local",
+    "DNS_Host_Name": "lon-ws-014.corp.local",
+    "Operating_System": "Windows 11 Pro",
+    "Last_Logon_Date": "2025-10-06",
+    "Password_Last_Set": "2025-09-01",
+    "Enabled": "True",
+    "Created_On": "2023-07-12",
+    "Locked_Out": "False",
+    "Object_SID": "S-1-5-21-1437627742-1534148987-3848374178-1114",
+    "Member_Of": "CN=Finance_Users,OU=Groups,DC=corp,DC=local"
+  },
+  {
+    "Computer_Name": "CHI-LAP-003",
+    "Canonical_Name": "corp.local/Laptops/CHI/CHI-LAP-003",
+    "Distinguished_Name": "CN=CHI-LAP-003,OU=Laptops,OU=CHI,DC=corp,DC=local",
+    "DNS_Host_Name": "chi-lap-003.corp.local",
+    "Operating_System": "Windows 10 Enterprise",
+    "Last_Logon_Date": "2025-09-29",
+    "Password_Last_Set": "2025-07-15",
+    "Enabled": "True",
+    "Created_On": "2021-11-02",
+    "Locked_Out": "False",
+    "Object_SID": "S-1-5-21-5439127742-2334148987-1848374178-1123",
+    "Member_Of": "CN=Sales_Team,OU=Groups,DC=corp,DC=local"
+  }
+]

@@ -21,22 +21,32 @@ const searchIndex: SearchItem[] = [
 export default function GlobalSearch({
   placeholder,
   variant = "default",
+  value,
+  onChange,
 }: {
   placeholder: string;
   variant?: "default" | "hero" | "navbar";
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const [query, setQuery] = useState("");
+  const [internalQuery, setInternalQuery] = useState("");
   const [results, setResults] = useState<SearchItem[]>([]);
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
+  const effectiveValue = value !== undefined ? value : internalQuery;
 
-    if (value.length > 0) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (onChange) {
+      onChange(e);
+    } else {
+      setInternalQuery(newValue);
+    }
+
+    if (newValue.length > 0) {
       setResults(
         searchIndex.filter((item) =>
-          item.name.toLowerCase().includes(value.toLowerCase())
+          item.name.toLowerCase().includes(newValue.toLowerCase())
         )
       );
     } else {
@@ -45,13 +55,17 @@ export default function GlobalSearch({
   };
 
   const handleClear = () => {
-    setQuery("");
+    if (onChange) {
+      onChange({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>);
+    } else {
+      setInternalQuery("");
+    }
     setResults([]);
   };
 
   const handleSelect = (path: string) => {
     navigate(path);
-    handleClear(); // clear after navigating
+    handleClear();
   };
 
   const inputClasses =
@@ -63,14 +77,13 @@ export default function GlobalSearch({
     <div className="relative">
       <input
         type="text"
-        value={query}
+        value={effectiveValue}
         onChange={handleChange}
         placeholder={placeholder}
         className={inputClasses}
       />
 
-      {/* Clear button (only when there's input) */}
-      {query && (
+      {effectiveValue && (
         <button
           type="button"
           onClick={handleClear}

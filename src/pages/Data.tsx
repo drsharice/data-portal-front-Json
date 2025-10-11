@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTitle } from "../hooks/useTitle";
+import { Link } from "react-router-dom";
 
 interface Dataset {
   key: string;
@@ -16,7 +17,6 @@ interface Preview {
   rows: Record<string, any>[];
 }
 
-// Use Vite's BASE_URL so this works on GitHub Pages subpaths AND Azure SWA root.
 const mockBase = `${import.meta.env.BASE_URL}mock`;
 
 export default function Data() {
@@ -29,7 +29,6 @@ export default function Data() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  // Load dataset list
   useEffect(() => {
     fetch(`${mockBase}/sources.json`)
       .then((r) => r.json())
@@ -46,7 +45,6 @@ export default function Data() {
       });
   }, []);
 
-  // Load selected dataset preview
   useEffect(() => {
     if (!selected) {
       setPreview(null);
@@ -67,7 +65,7 @@ export default function Data() {
         } else {
           setPreview({ view: selected.key, columns: [], rows: [] });
         }
-        setQ(""); // reset search on new table load
+        setQ("");
       })
       .catch((e) => setErr(e?.message ?? String(e)))
       .finally(() => setLoading(false));
@@ -118,60 +116,117 @@ export default function Data() {
   return (
     <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
       <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8">
-        <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
-          <button
-            type="button"
-            onClick={() => {
-              setSelected(null);
-              setQ("");
-            }}
-            className="text-sm font-semibold tracking-wide text-gray-700 uppercase hover:underline hover:text-red-600"
-            title="Back to dataset list"
-          >
-            Datasets
-          </button>
 
-          <form className="ml-auto flex items-center gap-2" onSubmit={(e) => e.preventDefault()}>
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={selected ? "Search within table..." : 'Search datasets, e.g. "macro indicators"'}
-              className="w-[520px] rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
-            />
-            {q && (
-              <button
-                type="button"
-                onClick={() => setQ("")}
-                className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-gray-800 hover:bg-gray-300"
-                title="Clear search"
-              >
-                ✕
-              </button>
-            )}
-            {!selected && (
-              <button
-                type="submit"
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
-              >
-                Search
-              </button>
-            )}
-          </form>
+        {/* Header Row */}
+        <div className="flex items-start justify-between border-b border-gray-200 pb-4">
+          {/* Left: Catalog Info */}
+          <p className="text-sm text-gray-600 mt-2">
+            Looking for more datasets?{" "}
+            <Link to="/catalog" className="text-red-600 hover:underline">
+              Explore our catalog
+            </Link>{" "}
+            and submit a request.
+          </p>
+
+          {/* Centered Title */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              View Your Available Datasets
+            </h2>
+          </div>
         </div>
 
+        {/* Datasets Toolbar */}
+        <div className="flex items-center justify-between border-b border-gray-200 pb-4 mt-4">
+          {/* Left: Datasets Label */}
+         {/* Left: Datasets Label (Hyperlink Behavior) */}
+          <button
+           type="button"
+             onClick={() => {
+            setSelected(null);
+            setQ("");
+  }}
+  className={`text-sm font-semibold tracking-wide uppercase transition ${
+    selected
+      ? "text-red-600 hover:underline cursor-pointer"
+      : "text-gray-500 cursor-default"
+  }`}
+  title={selected ? "Back to dataset list" : "Already on dataset list"}
+>
+  Datasets
+</button>
+
+
+          {/* Center: Search Bar */}
+          <div className="flex-1 flex justify-center">
+            <form
+              className="flex items-center gap-2 w-full max-w-lg justify-center"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={
+                  selected ? "Search within table..." : 'Search datasets, e.g. "macro indicators"'
+                }
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
+              />
+              {q && (
+                <button
+                  type="button"
+                  onClick={() => setQ("")}
+                  className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-gray-800 hover:bg-gray-300"
+                  title="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+              {!selected && (
+                <button
+                  type="submit"
+                  className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
+                >
+                  Search
+                </button>
+              )}
+            </form>
+          </div>
+
+          {/* Right: Quick Pin */}
+          <div className="flex flex-col items-center text-center space-y-1 mr-4">
+            <div className="flex items-center space-x-2 text-sm font-semibold text-gray-800">
+              <span role="img" aria-label="pin" className="text-base">
+                📌
+              </span>
+              <span>Quick Pin</span>
+              <span className="text-gray-400">⋯</span>
+            </div>
+            <div className="flex flex-col items-center space-y-0.5">
+              <div className="w-10 h-0.5 bg-red-600 rounded-full"></div>
+              <div className="w-8 h-0.5 bg-yellow-400 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Layout */}
         <div className="grid grid-cols-12 gap-6 pt-6 h-full">
           {!selected && (
             <aside className="col-span-12 md:col-span-3 md:pr-4 md:border-r md:border-gray-200">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
+                Datasets
+              </h3>
               <div className="md:sticky md:top-28 md:h-[calc(72vh-5rem)] overflow-auto">
                 <ul className="space-y-2">
-                  {filteredDatasets.map((v: Dataset, index: number) => {
+                  {filteredDatasets.map((v, index) => {
                     const active = selected?.key === v.key;
                     return (
                       <li key={index}>
                         <button
                           onClick={() => setSelected(v)}
                           className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
-                            active ? "border-red-600 bg-red-50" : "border-gray-200 bg-white hover:bg-gray-50"
+                            active
+                              ? "border-red-600 bg-red-50"
+                              : "border-gray-200 bg-white hover:bg-gray-50"
                           }`}
                         >
                           {v.label}
@@ -184,6 +239,7 @@ export default function Data() {
             </aside>
           )}
 
+          {/* Main Content */}
           <main className={`col-span-12 ${!selected ? "md:col-span-9" : "md:col-span-12"}`}>
             {selected && (
               <div className="space-y-4">
@@ -192,8 +248,16 @@ export default function Data() {
                   <span className="text-xs text-gray-500">Preview (top 100)</span>
                 </div>
 
-                {err && <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{err}</div>}
-                {loading && <div className="rounded-lg border border-gray-200 bg-white p-3 text-sm">Loading…</div>}
+                {err && (
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                    {err}
+                  </div>
+                )}
+                {loading && (
+                  <div className="rounded-lg border border-gray-200 bg-white p-3 text-sm">
+                    Loading…
+                  </div>
+                )}
 
                 {preview && !loading && (
                   <>

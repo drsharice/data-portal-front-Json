@@ -90,11 +90,11 @@ export default function Hero() {
                 >
                   <div className="relative w-full">
                     <GlobalSearch
-                      placeholder='Search datasets, e.g. "macro indicators"'
-                      value={searchValue}
-                      onChange={(e: any) => setSearchValue(e.target.value)}
-                      variant="hero"
-                    />
+                       placeholder='Search datasets, e.g. "macro indicators"'
+                       value={searchValue}
+                       onChange={(e: any) => setSearchValue(e.target.value)}
+                       variant="hero"
+                      />
                     {searchValue && (
                       <button
                         type="button"
@@ -157,7 +157,7 @@ export default function Hero() {
             </div>
 
             {/* Controlled ChatBot */}
-            <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} disableFloating />
+           <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} disableFloating />
           </div>
         </div>
       </div>
