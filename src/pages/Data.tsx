@@ -29,6 +29,10 @@ export default function Data() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  // Quick Pin state
+  const [pinned, setPinned] = useState<string[]>([]);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     fetch(`${mockBase}/sources.json`)
       .then((r) => r.json())
@@ -39,10 +43,7 @@ export default function Data() {
         }));
         setViews(list);
       })
-      .catch((e) => {
-        console.error(e);
-        setViews([]);
-      });
+      .catch(() => setViews([]));
   }, []);
 
   useEffect(() => {
@@ -86,10 +87,8 @@ export default function Data() {
 
   function downloadCsv() {
     if (!preview) return;
-
     const cols = preview.columns.map((c) => c.name);
     const rows = preview.rows;
-
     const esc = (v: any) => {
       if (v == null) return "";
       const s = typeof v === "object" ? JSON.stringify(v) : String(v);
@@ -97,11 +96,9 @@ export default function Data() {
       const withDoubles = s.replace(/"/g, '""');
       return needsQuotes ? `"${withDoubles}"` : withDoubles;
     };
-
     const header = cols.join(",");
     const body = rows.map((r) => cols.map((c) => esc(r[c])).join(",")).join("\n");
     const csv = [header, body].join("\n");
-
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -117,9 +114,8 @@ export default function Data() {
     <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
       <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8">
 
-        {/* Header Row */}
+        {/* Header */}
         <div className="flex items-start justify-between border-b border-gray-200 pb-4">
-          {/* Left: Catalog Info */}
           <p className="text-sm text-gray-600 mt-2">
             Looking for more datasets?{" "}
             <Link to="/catalog" className="text-red-600 hover:underline">
@@ -127,8 +123,6 @@ export default function Data() {
             </Link>{" "}
             and submit a request.
           </p>
-
-          {/* Centered Title */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <h2 className="text-2xl font-semibold text-gray-900">
               View Your Available Datasets
@@ -136,28 +130,26 @@ export default function Data() {
           </div>
         </div>
 
-        {/* Datasets Toolbar */}
-        <div className="flex items-center justify-between border-b border-gray-200 pb-4 mt-4">
-          {/* Left: Datasets Label */}
-         {/* Left: Datasets Label (Hyperlink Behavior) */}
+        {/* Toolbar */}
+        <div className="flex items-center justify-between border-b border-gray-200 pb-4 mt-4 relative">
+          {/* Left */}
           <button
-           type="button"
-             onClick={() => {
-            setSelected(null);
-            setQ("");
-  }}
-  className={`text-sm font-semibold tracking-wide uppercase transition ${
-    selected
-      ? "text-red-600 hover:underline cursor-pointer"
-      : "text-gray-500 cursor-default"
-  }`}
-  title={selected ? "Back to dataset list" : "Already on dataset list"}
->
-  Datasets
-</button>
+            type="button"
+            onClick={() => {
+              setSelected(null);
+              setQ("");
+            }}
+            className={`text-sm font-semibold tracking-wide uppercase transition ${
+              selected
+                ? "text-red-600 hover:underline cursor-pointer"
+                : "text-gray-500 cursor-default"
+            }`}
+            title={selected ? "Back to dataset list" : "Already on dataset list"}
+          >
+            Datasets
+          </button>
 
-
-          {/* Center: Search Bar */}
+          {/* Center */}
           <div className="flex-1 flex justify-center">
             <form
               className="flex items-center gap-2 w-full max-w-lg justify-center"
@@ -193,28 +185,48 @@ export default function Data() {
           </div>
 
           {/* Right: Quick Pin */}
-          <div className="flex flex-col items-center text-center space-y-1 mr-4">
-            <div className="flex items-center space-x-2 text-sm font-semibold text-gray-800">
-              <span role="img" aria-label="pin" className="text-base">
-                📌
-              </span>
+          <div className="relative mr-4">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex items-center space-x-2 text-sm font-semibold text-gray-800"
+            >
+              <span role="img" aria-label="pin" className="text-base">📌</span>
               <span>Quick Pin</span>
-              <span className="text-gray-400">⋯</span>
-            </div>
-            <div className="flex flex-col items-center space-y-0.5">
-              <div className="w-10 h-0.5 bg-red-600 rounded-full"></div>
-              <div className="w-8 h-0.5 bg-yellow-400 rounded-full"></div>
-            </div>
+              <span className="text-gray-400 text-lg">⋯</span>
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <ul className="max-h-64 overflow-auto text-sm text-gray-800">
+                  {views.map((ds) => (
+                    <li key={ds.key} className="flex items-center justify-between px-3 py-2 hover:bg-gray-50">
+                      <label className="flex items-center space-x-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={pinned.includes(ds.key)}
+                          onChange={() => {
+                            setPinned((prev) =>
+                              prev.includes(ds.key)
+                                ? prev.filter((x) => x !== ds.key)
+                                : [...prev, ds.key]
+                            );
+                          }}
+                          className="rounded text-red-600 focus:ring-red-500"
+                        />
+                        <span>{ds.label}</span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Main Layout */}
+        {/* Layout */}
         <div className="grid grid-cols-12 gap-6 pt-6 h-full">
           {!selected && (
             <aside className="col-span-12 md:col-span-3 md:pr-4 md:border-r md:border-gray-200">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
-                Datasets
-              </h3>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Datasets</h3>
               <div className="md:sticky md:top-28 md:h-[calc(72vh-5rem)] overflow-auto">
                 <ul className="space-y-2">
                   {filteredDatasets.map((v, index) => {
@@ -239,8 +251,32 @@ export default function Data() {
             </aside>
           )}
 
-          {/* Main Content */}
+          {/* Main */}
           <main className={`col-span-12 ${!selected ? "md:col-span-9" : "md:col-span-12"}`}>
+            {/* Styled Quick Pin Cards */}
+            {!selected && pinned.length > 0 && (
+              <div className="mb-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {pinned.map((key, i) => {
+                  const dataset = views.find((v) => v.key === key);
+                  if (!dataset) return null;
+                  const stripeColor = i % 2 === 0 ? "bg-red-600" : "bg-yellow-400";
+                  return (
+                    <button
+                      key={dataset.key}
+                      onClick={() => setSelected(dataset)}
+                      className="relative overflow-hidden text-left rounded-xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fadeIn"
+                    >
+                      <div className={`absolute left-0 top-0 h-full w-1.5 ${stripeColor}`}></div>
+                      <div className="pl-4 pr-4 py-4">
+                        <div className="font-semibold text-gray-800">{dataset.label}</div>
+                        <div className="text-xs text-gray-500 mt-1">Click to open dataset</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             {selected && (
               <div className="space-y-4">
                 <div className="flex items-end justify-between">
@@ -249,14 +285,10 @@ export default function Data() {
                 </div>
 
                 {err && (
-                  <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-                    {err}
-                  </div>
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{err}</div>
                 )}
                 {loading && (
-                  <div className="rounded-lg border border-gray-200 bg-white p-3 text-sm">
-                    Loading…
-                  </div>
+                  <div className="rounded-lg border border-gray-200 bg-white p-3 text-sm">Loading…</div>
                 )}
 
                 {preview && !loading && (
@@ -321,6 +353,19 @@ export default function Data() {
           </main>
         </div>
       </div>
+
+      {/* Fade-in animation */}
+      <style>
+        {`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-in-out both;
+        }
+        `}
+      </style>
     </section>
   );
 }
