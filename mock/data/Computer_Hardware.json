@@ -1,0 +1,202 @@
+[
+  {
+    "Hostname": "PHX-LAP-001",
+    "Domain_Name": "na.corp",
+    "Device_Manufacturer": "Dell",
+    "Device_Model": "ZenBook 14",
+    "Device_Serial_Number": "SN958615A",
+    "Processor": "Intel Core i5",
+    "Processor_Speed_GHz": 4.52,
+    "Memory_GB": 64
+  },
+  {
+    "Hostname": "SFO-LAP-002",
+    "Domain_Name": "hq.local",
+    "Device_Manufacturer": "Microsoft",
+    "Device_Model": "Precision 5570",
+    "Device_Serial_Number": "SN264424C",
+    "Processor": "Intel Core i5",
+    "Processor_Speed_GHz": 2.85,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "SFO-WS-003",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Asus",
+    "Device_Model": "Precision 5570",
+    "Device_Serial_Number": "SN764240B",
+    "Processor": "AMD Ryzen 5",
+    "Processor_Speed_GHz": 4.98,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "DAL-WS-004",
+    "Domain_Name": "na.corp",
+    "Device_Manufacturer": "Dell",
+    "Device_Model": "ThinkPad X1",
+    "Device_Serial_Number": "SN560234C",
+    "Processor": "Intel Core i5",
+    "Processor_Speed_GHz": 3.96,
+    "Memory_GB": 64
+  },
+  {
+    "Hostname": "DAL-SRV-005",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "HP",
+    "Device_Model": "ZenBook 14",
+    "Device_Serial_Number": "SN750767B",
+    "Processor": "Intel Core i9",
+    "Processor_Speed_GHz": 4.12,
+    "Memory_GB": 8
+  },
+  {
+    "Hostname": "DAL-LAP-006",
+    "Domain_Name": "europe.corp",
+    "Device_Manufacturer": "HP",
+    "Device_Model": "EliteBook 850",
+    "Device_Serial_Number": "SN636779C",
+    "Processor": "Intel Core i7",
+    "Processor_Speed_GHz": 2.13,
+    "Memory_GB": 64
+  },
+  {
+    "Hostname": "CHI-VM-007",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Lenovo",
+    "Device_Model": "Aspire 7",
+    "Device_Serial_Number": "SN232522D",
+    "Processor": "AMD Ryzen 5",
+    "Processor_Speed_GHz": 3.64,
+    "Memory_GB": 128
+  },
+  {
+    "Hostname": "CHI-WS-008",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Apple",
+    "Device_Model": "Surface Laptop 5",
+    "Device_Serial_Number": "SN291058B",
+    "Processor": "Intel Core i9",
+    "Processor_Speed_GHz": 3.71,
+    "Memory_GB": 32
+  },
+  {
+    "Hostname": "NYC-SRV-009",
+    "Domain_Name": "europe.corp",
+    "Device_Manufacturer": "Microsoft",
+    "Device_Model": "EliteBook 850",
+    "Device_Serial_Number": "SN757584B",
+    "Processor": "Apple M2 Pro",
+    "Processor_Speed_GHz": 3.35,
+    "Memory_GB": 32
+  },
+  {
+    "Hostname": "NYC-WS-010",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Lenovo",
+    "Device_Model": "ZenBook 14",
+    "Device_Serial_Number": "SN100987C",
+    "Processor": "Intel Core i7",
+    "Processor_Speed_GHz": 2.35,
+    "Memory_GB": 64
+  },
+  {
+    "Hostname": "ATL-SRV-011",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Asus",
+    "Device_Model": "Precision 5570",
+    "Device_Serial_Number": "SN338670A",
+    "Processor": "Apple M2 Pro",
+    "Processor_Speed_GHz": 2.27,
+    "Memory_GB": 64
+  },
+  {
+    "Hostname": "LON-LAP-012",
+    "Domain_Name": "corp.local",
+    "Device_Manufacturer": "Microsoft",
+    "Device_Model": "Surface Laptop 5",
+    "Device_Serial_Number": "SN374046B",
+    "Processor": "Intel Core i9",
+    "Processor_Speed_GHz": 3.14,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "ATL-VM-013",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "HP",
+    "Device_Model": "EliteBook 850",
+    "Device_Serial_Number": "SN297140B",
+    "Processor": "Intel Core i9",
+    "Processor_Speed_GHz": 3.75,
+    "Memory_GB": 32
+  },
+  {
+    "Hostname": "SFO-SRV-014",
+    "Domain_Name": "na.corp",
+    "Device_Manufacturer": "Microsoft",
+    "Device_Model": "ThinkPad X1",
+    "Device_Serial_Number": "SN732432C",
+    "Processor": "AMD Ryzen 5",
+    "Processor_Speed_GHz": 3.43,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "MIA-LAP-015",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "HP",
+    "Device_Model": "ZenBook 14",
+    "Device_Serial_Number": "SN467252C",
+    "Processor": "Intel Core i7",
+    "Processor_Speed_GHz": 3.43,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "SFO-WS-016",
+    "Domain_Name": "na.corp",
+    "Device_Manufacturer": "HP",
+    "Device_Model": "ThinkPad X1",
+    "Device_Serial_Number": "SN113532C",
+    "Processor": "Intel Core i7",
+    "Processor_Speed_GHz": 4.3,
+    "Memory_GB": 8
+  },
+  {
+    "Hostname": "CHI-LAP-017",
+    "Domain_Name": "hq.local",
+    "Device_Manufacturer": "Apple",
+    "Device_Model": "Surface Laptop 5",
+    "Device_Serial_Number": "SN236421B",
+    "Processor": "Apple M2 Pro",
+    "Processor_Speed_GHz": 4.5,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "SFO-VM-018",
+    "Domain_Name": "asia.corp",
+    "Device_Manufacturer": "Dell",
+    "Device_Model": "Precision 5570",
+    "Device_Serial_Number": "SN920241A",
+    "Processor": "AMD Ryzen 7",
+    "Processor_Speed_GHz": 4.52,
+    "Memory_GB": 16
+  },
+  {
+    "Hostname": "ATL-LAP-019",
+    "Domain_Name": "corp.local",
+    "Device_Manufacturer": "Apple",
+    "Device_Model": "ThinkPad X1",
+    "Device_Serial_Number": "SN719291D",
+    "Processor": "Intel Core i9",
+    "Processor_Speed_GHz": 3.19,
+    "Memory_GB": 128
+  },
+  {
+    "Hostname": "SFO-LAP-020",
+    "Domain_Name": "hq.local",
+    "Device_Manufacturer": "Lenovo",
+    "Device_Model": "EliteBook 850",
+    "Device_Serial_Number": "SN945938B",
+    "Processor": "AMD Ryzen 5",
+    "Processor_Speed_GHz": 2.84,
+    "Memory_GB": 16
+  }
+]

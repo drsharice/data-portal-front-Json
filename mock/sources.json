@@ -2,6 +2,14 @@
   "sources": [
     "Bloomberg_User_ReportTable",
     "HR_Employees",
-    "RightFax_Users"
+    "RightFax_Users",
+    "Finance_Budget",
+    "HR_Devices",
+    "Active_Directory_Computers",
+    "Active_Directory_Groups",
+    "Computer_Hardware",
+    "IT_Software",
+    "OCC_Unified_Patching_Report",
+    "User_Entitlements"
   ]
 }
