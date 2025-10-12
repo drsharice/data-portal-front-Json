@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useTitle } from "../hooks/useTitle";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import ChatBot from "../components/ChatBot";
+import logoEBlack from "../assets/logo-e-black.png";
 
 interface Column {
   name: string;
@@ -30,11 +32,11 @@ export default function Catalog() {
   const [datasets, setDatasets] = useState<CatalogItem[]>([]);
   const [apis, setApis] = useState<CatalogItem[]>([]);
   const [reports, setReports] = useState<CatalogItem[]>([]);
-
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<CatalogItem | null>(null);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<CatalogType>("data");
+  const [chatOpen, setChatOpen] = useState(false);
 
   const { cart, addToCart } = useCart();
   const navigate = useNavigate();
@@ -43,9 +45,7 @@ export default function Catalog() {
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}mock/mockDatasets.json`)
       .then((res) => res.json())
-      .then((data) =>
-        setDatasets(data.map((d: any) => ({ ...d, type: "data" })))
-      );
+      .then((data) => setDatasets(data.map((d: any) => ({ ...d, type: "data" }))));
 
     fetch(`${import.meta.env.BASE_URL}mock/mockApis.json`)
       .then((res) => res.json())
@@ -53,12 +53,9 @@ export default function Catalog() {
 
     fetch(`${import.meta.env.BASE_URL}mock/mockReports.json`)
       .then((res) => res.json())
-      .then((data) =>
-        setReports(data.map((d: any) => ({ ...d, type: "report" })))
-      );
+      .then((data) => setReports(data.map((d: any) => ({ ...d, type: "report" }))));
   }, []);
 
-  // Get items for current tab
   const items = activeTab === "data" ? datasets : activeTab === "api" ? apis : reports;
 
   const categories = useMemo(() => {
@@ -95,93 +92,116 @@ export default function Catalog() {
   }, [q, items, selected]);
 
   return (
-    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
-      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-black shadow-2xl ring-1 ring-gray-200 p-4 md:p-8">
-        {/* Header with tabs */}
-        <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
+    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8 relative">
+      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-black shadow-2xl ring-1 ring-gray-200 p-4 md:p-8 relative">
+
+        {/* Header Row */}
+        <div className="flex items-center justify-between border-b border-gray-200 pb-4 relative">
+          {/* Left: Catalog title */}
           <button
             type="button"
             onClick={() => {
               setSelected(null);
               setQ("");
             }}
-            className="text-sm font-semibold tracking-wide uppercase hover:underline hover:text-red-600"
+            disabled={!selected}
+            className={`text-sm font-semibold tracking-wide uppercase ${
+              selected
+                ? "text-gray-700 hover:underline hover:text-red-600"
+                : "text-gray-400 cursor-not-allowed"
+            }`}
           >
             Catalog
           </button>
 
-          {/* Tabs */}
-          <div className="flex gap-2 ml-6">
-            {(["data", "api", "report"] as CatalogType[]).map((t) => (
-              <button
-                key={t}
-                onClick={() => {
-                  setSelected(null);
-                  setQ("");
-                  setActiveTab(t);
-                }}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold ${
-                  activeTab === t
-                    ? "bg-red-600 text-white"
-                    : "bg-gray-200 text-black"
-                }`}
+          {/* Center: Tabs + Search + Cart */}
+          <div className="flex-1 flex flex-col items-center">
+            {/* Tabs */}
+            <div className="flex gap-2 mb-3">
+              {(["data", "api", "report"] as CatalogType[]).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => {
+                    setSelected(null);
+                    setQ("");
+                    setActiveTab(t);
+                  }}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold ${
+                    activeTab === t
+                      ? "bg-red-600 text-white"
+                      : "bg-gray-200 text-black"
+                  }`}
+                >
+                  {t === "data" ? "Data" : t === "api" ? "APIs" : "Reports"}
+                </button>
+              ))}
+            </div>
+
+            {/* Search bar and Cart */}
+            <div className="flex items-center gap-2 w-full max-w-xl justify-center">
+              <form
+                className="flex items-center gap-2 w-full justify-center"
+                onSubmit={(e) => e.preventDefault()}
               >
-                {t === "data" ? "Data" : t === "api" ? "APIs" : "Reports"}
-              </button>
-            ))}
+                <input
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder={
+                    selected
+                      ? "Search within item..."
+                      : `Search ${activeTab} by name or category...`
+                  }
+                  className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-black outline-none focus:ring-2 focus:ring-red-600"
+                />
+                {q && (
+                  <button
+                    type="button"
+                    onClick={() => setQ("")}
+                    className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-black hover:bg-gray-300"
+                  >
+                    ✕
+                  </button>
+                )}
+                {!selected && (
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
+                  >
+                    Search
+                  </button>
+                )}
+              </form>
+
+              {/* Cart */}
+              <div className="ml-2">
+                <button
+                  onClick={() => navigate("/cart")}
+                  className="relative inline-flex items-center bg-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 text-black font-semibold"
+                  title="Checkout"
+                >
+                  🛒
+                  {cart.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                      {cart.length}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
 
-          <form
-            className="ml-auto flex items-center gap-2"
-            onSubmit={(e) => e.preventDefault()}
+          {/* Right: Chat with Dedge */}
+          <button
+            onClick={() => setChatOpen(true)}
+            className="flex items-center gap-2 bg-yellow-400 text-black font-semibold px-3 py-2 rounded-lg shadow hover:bg-yellow-300 transition ml-4"
+            title="Chat with Dedge"
           >
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={
-                selected
-                  ? "Search within item..."
-                  : `Search ${activeTab} by name or category...`
-              }
-              className="w-[400px] rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-black outline-none focus:ring-2 focus:ring-red-600"
-            />
-            {q && (
-              <button
-                type="button"
-                onClick={() => setQ("")}
-                className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-black hover:bg-gray-300"
-              >
-                ✕
-              </button>
-            )}
-            {!selected && (
-              <button
-                type="submit"
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
-              >
-                Search
-              </button>
-            )}
-          </form>
-
-          {/* Cart Badge */}
-          <div className="ml-4">
-            <button
-              onClick={() => navigate("/cart")}
-              className="relative inline-flex items-center bg-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 text-black font-semibold"
-              title="Checkout"
-            >
-              🛒
-              {cart.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
-                  {cart.length}
-                </span>
-              )}
-            </button>
-          </div>
+            <img src={logoEBlack} alt="Dedge Logo" className="w-5 h-5" />
+            <span>Chat with Dedge</span>
+          </button>
         </div>
 
-        {/* Layout */}
+        {/* Layout Section */}
         <div className="grid grid-cols-12 gap-6 pt-6 h-full">
           {!selected && (
             <aside className="col-span-12 md:col-span-3 md:pr-4 md:border-r md:border-gray-200">
@@ -193,9 +213,7 @@ export default function Catalog() {
                     return (
                       <li key={cat} className="border rounded-lg">
                         <button
-                          onClick={() =>
-                            setOpenCategory(isOpen ? null : cat)
-                          }
+                          onClick={() => setOpenCategory(isOpen ? null : cat)}
                           className="w-full flex justify-between items-center px-3 py-2 text-sm font-medium hover:bg-gray-50"
                         >
                           {cat}
@@ -259,7 +277,6 @@ export default function Catalog() {
                         id: selected.id,
                         name: selected.name,
                         description: selected.description,
-                    
                       })
                     }
                     className="mt-3 rounded-lg bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:brightness-110"
@@ -298,7 +315,8 @@ export default function Catalog() {
             ) : (
               <>
                 <h2 className="text-lg font-semibold mb-4">
-                  Our most popular {activeTab === "data"
+                  Our most popular{" "}
+                  {activeTab === "data"
                     ? "datasets"
                     : activeTab === "api"
                     ? "APIs"
@@ -313,15 +331,11 @@ export default function Catalog() {
                         className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl transition p-4 relative cursor-pointer"
                         onClick={() => setSelected(d)}
                       >
-                        <h3 className="text-lg font-semibold mb-1">
-                          {d.name}
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-1">{d.name}</h3>
                         <p className="text-sm mb-2">{d.description}</p>
-
                         <span className="inline-block text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
                           {d.category}
                         </span>
-
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -329,7 +343,6 @@ export default function Catalog() {
                               id: d.id,
                               name: d.name,
                               description: d.description,
-                              
                             });
                           }}
                           className="absolute top-3 right-3 bg-yellow-400 text-black font-bold rounded-full p-2 hover:bg-yellow-500"
@@ -345,6 +358,9 @@ export default function Catalog() {
           </main>
         </div>
       </div>
+
+      {/* ChatBot Modal */}
+      <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} />
     </section>
   );
 }

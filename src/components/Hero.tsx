@@ -43,7 +43,6 @@ export default function Hero() {
       <div className="relative z-10 min-h-screen grid place-items-center px-4 pt-20 md:pt-24">
         <div className="w-full">
           <div className="glass-card mx-auto w-[88vw] max-w-[90rem] min-h-[60vh] px-12 md:px-16 flex flex-col items-center justify-center text-center gap-8">
-
             {/* Brand Logo + Title */}
             <div className="flex items-center gap-1 justify-center">
               <LogoE size={200} color="text-white" />
@@ -75,7 +74,6 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex items-center justify-center gap-4 mt-28 w-full max-w-xl relative">
-              {/* Search button */}
               {!showSearch ? (
                 <button
                   onClick={() => setShowSearch(true)}
@@ -84,17 +82,14 @@ export default function Hero() {
                   Search Site
                 </button>
               ) : (
-                <form
-                  onSubmit={onSubmit}
-                  className="flex items-center gap-2 flex-1"
-                >
+                <form onSubmit={onSubmit} className="flex items-center gap-2 flex-1">
                   <div className="relative w-full">
                     <GlobalSearch
-                       placeholder='Search datasets, e.g. "macro indicators"'
-                       value={searchValue}
-                       onChange={(e: any) => setSearchValue(e.target.value)}
-                       variant="hero"
-                      />
+                      placeholder='Search datasets, e.g. "macro indicators"'
+                      value={searchValue}
+                      onChange={(e: any) => setSearchValue(e.target.value)}
+                      variant="hero"
+                    />
                     {searchValue && (
                       <button
                         type="button"
@@ -149,7 +144,6 @@ export default function Hero() {
                         ×
                       </button>
                     </div>
-                    {/* Tail */}
                     <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 md:left-auto md:right-6 md:translate-x-0 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
                   </motion.div>
                 )}
@@ -157,7 +151,7 @@ export default function Hero() {
             </div>
 
             {/* Controlled ChatBot */}
-           <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} disableFloating />
+            <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} />
           </div>
         </div>
       </div>

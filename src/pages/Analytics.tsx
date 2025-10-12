@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTitle } from "../hooks/useTitle";
+import ChatBot from "../components/ChatBot";
+import logoEBlack from "../assets/logo-e-black.png";
 
 interface Report {
   key: string;
@@ -20,19 +22,20 @@ export default function Analytics() {
   const [deviceSummary, setDeviceSummary] = useState<{ [key: string]: number }>({});
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
 
-  // Load available reports
   useEffect(() => {
-    fetch(`${mockBase}/reports.json`)
+    const reportsPath = `${mockBase}/reports.json`;
+    fetch(reportsPath)
       .then((r) => r.json())
-      .then((res) => setReports(res.reports ?? []))
-      .catch((e) => {
-        console.error("Error loading reports.json:", e);
-        setReports([]);
-      });
+      .then((res) => {
+        if (Array.isArray(res.reports)) setReports(res.reports);
+        else if (Array.isArray(res)) setReports(res);
+        else setReports([]);
+      })
+      .catch(() => setReports([]));
   }, []);
 
-  // Load selected report data
   useEffect(() => {
     if (!selected) {
       setRows([]);
@@ -41,18 +44,14 @@ export default function Analytics() {
     }
     setLoading(true);
     setErr(null);
-
-    fetch(`${mockBase}/data/${selected.key}.json`)
+    const datasetUrl = `${mockBase}/data/${selected.key}.json`;
+    fetch(datasetUrl)
       .then((r) => r.json())
       .then((data: Record<string, any>[]) => {
         setRows(data);
-
-        // Build device summary if applicable
         const summary: { [key: string]: number } = {};
         data.forEach((row) => {
-          if (row.device) {
-            summary[row.device] = (summary[row.device] || 0) + 1;
-          }
+          if (row.device) summary[row.device] = (summary[row.device] || 0) + 1;
         });
         setDeviceSummary(summary);
       })
@@ -60,13 +59,11 @@ export default function Analytics() {
       .finally(() => setLoading(false));
   }, [selected]);
 
-  // Filter report list
   const filteredReports = useMemo(() => {
     const term = q.trim().toLowerCase();
     return term ? reports.filter((r) => r.label.toLowerCase().includes(term)) : reports;
   }, [q, reports]);
 
-  // Filter rows inside a report
   const filteredRows = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term || !selected) return rows;
@@ -75,7 +72,6 @@ export default function Analytics() {
     );
   }, [rows, q, selected]);
 
-  // CSV download
   function downloadCsv() {
     if (!rows.length || !selected) return;
     const cols = Object.keys(rows[0]);
@@ -89,7 +85,6 @@ export default function Analytics() {
     const header = cols.join(",");
     const body = rows.map((r) => cols.map((c) => esc(r[c])).join(",")).join("\n");
     const csv = [header, body].join("\n");
-
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -102,71 +97,100 @@ export default function Analytics() {
   }
 
   return (
-    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
-      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8">
-        {/* Top bar */}
-        <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
+    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8 relative">
+      <div
+        className="mx-auto w-full max-w-[1400px] min-h-[72vh]
+                   rounded-2xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200
+                   p-4 md:p-8 relative"
+      >
+        {/* Top Toolbar */}
+        <div className="flex items-center justify-between border-b border-gray-200 pb-4 relative">
+          {/* Left: Reports Button */}
           <button
             type="button"
             onClick={() => {
               setSelected(null);
               setQ("");
             }}
-            className="text-sm font-semibold tracking-wide text-gray-700 uppercase hover:underline hover:text-red-600"
+            disabled={!selected}
+            className={`text-sm font-semibold tracking-wide uppercase ${
+              selected
+                ? "text-gray-700 hover:underline hover:text-red-600"
+                : "text-gray-400 cursor-not-allowed"
+            }`}
           >
             Reports
           </button>
 
-          <form
-            className="ml-auto flex items-center gap-2"
-            onSubmit={(e) => e.preventDefault()}
+          {/* Center: Search Bar */}
+          <div className="flex-1 flex justify-center">
+            <form
+              className="flex items-center gap-2 w-full max-w-lg justify-center"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={
+                  selected ? "Search within report..." : 'Search reports, e.g. "Finance"'
+                }
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2
+                           text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
+              />
+              {q && (
+                <button
+                  type="button"
+                  onClick={() => setQ("")}
+                  className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-gray-800 hover:bg-gray-300"
+                >
+                  ✕
+                </button>
+              )}
+              {!selected && (
+                <button
+                  type="submit"
+                  className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
+                >
+                  Search
+                </button>
+              )}
+            </form>
+          </div>
+
+          {/* Right: Chat with Dedge Button */}
+          <button
+            onClick={() => setChatOpen(true)}
+            className="flex items-center gap-2 bg-yellow-400 text-black font-semibold
+                       px-3 py-2 rounded-lg shadow hover:bg-yellow-300 transition ml-4"
+            title="Chat with Dedge"
           >
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={
-                selected
-                  ? "Search within report..."
-                  : 'Search reports, e.g. "Finance"'
-              }
-              className="w-[520px] rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
-            />
-            {q && (
-              <button
-                type="button"
-                onClick={() => setQ("")}
-                className="rounded-lg bg-gray-200 px-2 py-2 text-sm text-gray-800 hover:bg-gray-300"
-              >
-                ✕
-              </button>
-            )}
-            {!selected && (
-              <button
-                type="submit"
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
-              >
-                Search
-              </button>
-            )}
-          </form>
+            <img src={logoEBlack} alt="Dedge Logo" className="w-5 h-5" />
+            <span>Chat with Dedge</span>
+          </button>
         </div>
 
-        {/* Layout */}
+        {/* Main Layout */}
         <div className="grid grid-cols-12 gap-6 pt-6 h-full">
           {!selected && (
             <aside className="col-span-12 md:col-span-3 md:pr-4 md:border-r md:border-gray-200">
-              <ul className="space-y-2">
-                {filteredReports.map((r) => (
-                  <li key={r.key}>
-                    <button
-                      onClick={() => setSelected(r)}
-                      className="w-full rounded-xl border border-gray-200 bg-white hover:bg-gray-50 px-3 py-2 text-left text-sm"
-                    >
-                      {r.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
+                Reports
+              </h3>
+              <div className="md:sticky md:top-28 md:h-[calc(72vh-5rem)] overflow-auto">
+                <ul className="space-y-2">
+                  {filteredReports.map((r, i) => (
+                    <li key={r.key || i}>
+                      <button
+                        onClick={() => setSelected(r)}
+                        className="w-full rounded-xl border border-gray-200 bg-white hover:bg-gray-50
+                                   px-3 py-2 text-left text-sm"
+                      >
+                        {r.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
           )}
 
@@ -175,7 +199,6 @@ export default function Analytics() {
               <p className="text-gray-500">Select a report to view details.</p>
             ) : (
               <div className="space-y-6">
-                {/* Header */}
                 <div className="flex items-center justify-between">
                   <h1 className="text-2xl md:text-3xl font-extrabold">
                     Reporting &amp; Analytics – {selected.label}
@@ -190,10 +213,8 @@ export default function Analytics() {
                   </button>
                 </div>
 
-                {/* Description */}
                 <p className="text-gray-600">{selected.description}</p>
 
-                {/* Loading / Error */}
                 {loading && <div className="text-sm text-gray-500">Loading…</div>}
                 {err && (
                   <div className="rounded border border-red-200 bg-red-50 p-2 text-sm text-red-700">
@@ -201,7 +222,6 @@ export default function Analytics() {
                   </div>
                 )}
 
-                {/* Summary */}
                 {!loading && Object.keys(deviceSummary).length > 0 && (
                   <div>
                     <h3 className="text-lg font-semibold">Device Summary</h3>
@@ -215,7 +235,6 @@ export default function Analytics() {
                   </div>
                 )}
 
-                {/* Table */}
                 {!loading && rows.length > 0 && (
                   <>
                     <div className="overflow-x-auto">
@@ -244,7 +263,6 @@ export default function Analytics() {
                       </table>
                     </div>
 
-                    {/* Download button */}
                     <div className="flex justify-end">
                       <button
                         onClick={downloadCsv}
@@ -260,6 +278,9 @@ export default function Analytics() {
           </main>
         </div>
       </div>
+
+      {/* ChatBot Modal */}
+      <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} />
     </section>
   );
 }

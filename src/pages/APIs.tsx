@@ -3,6 +3,8 @@ import { useTitle } from "../hooks/useTitle";
 import SwaggerUI from "swagger-ui-react";
 import "swagger-ui-react/swagger-ui.css";
 import { Link } from "react-router-dom";
+import ChatBot from "../components/ChatBot";          // ✅ Added
+import logoEBlack from "../assets/logo-e-black.png";  // ✅ Added
 
 interface APIView {
   key: string;
@@ -18,6 +20,7 @@ export default function APIs() {
   const [views, setViews] = useState<APIView[]>([]);
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<APIView | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);   // ✅ Chatbot modal state
 
   useEffect(() => {
     const list: APIView[] = [
@@ -34,12 +37,24 @@ export default function APIs() {
   }, [q, views]);
 
   return (
-    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8">
-      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8">
+    <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8 relative">
+      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl 
+                      bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8 relative">
+
+        {/* ✅ Chat with Dedge trigger button */}
+        <button
+          onClick={() => setChatOpen(true)}
+          className="absolute top-6 right-8 flex items-center gap-2 
+                     bg-yellow-400 text-black font-semibold px-3 py-2 rounded-lg 
+                     shadow hover:bg-yellow-300 transition"
+          title="Chat with Dedge"
+        >
+          <img src={logoEBlack} alt="Dedge Logo" className="w-5 h-5" />
+          <span>Chat with Dedge</span>
+        </button>
 
         {/* Header Row */}
         <div className="flex items-start justify-between border-b border-gray-200 pb-4">
-          {/* Left: Catalog Info */}
           <p className="text-sm text-gray-600 mt-2">
             Looking for more APIs?{" "}
             <Link to="/catalog" className="text-red-600 hover:underline">
@@ -48,7 +63,6 @@ export default function APIs() {
             and submit a request.
           </p>
 
-          {/* Centered Title */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <h2 className="text-2xl font-semibold text-gray-900">
               View Your Available APIs
@@ -58,7 +72,6 @@ export default function APIs() {
 
         {/* APIs Toolbar */}
         <div className="flex items-center gap-3 border-b border-gray-200 pb-4 mt-4">
-          {/* Left: APIs Label (Clickable only when viewing API) */}
           <button
             type="button"
             onClick={() => setSelected(null)}
@@ -73,7 +86,6 @@ export default function APIs() {
             APIs
           </button>
 
-          {/* Centered Search Bar */}
           <div className="flex-1 flex justify-center">
             <form
               className="flex items-center gap-2 w-full max-w-lg justify-center"
@@ -83,7 +95,8 @@ export default function APIs() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={selected ? "Search within APIs..." : 'Search APIs, e.g. "HR"'}
-                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm 
+                           text-gray-900 outline-none focus:ring-2 focus:ring-red-600"
               />
               {q && (
                 <button
@@ -111,9 +124,7 @@ export default function APIs() {
         <div className="grid grid-cols-12 gap-6 pt-6 h-full">
           {!selected && (
             <aside className="col-span-12 md:col-span-3 md:pr-4 md:border-r md:border-gray-200">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
-              
-              </h3>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">APIs</h3>
               <div className="md:sticky md:top-28 md:h-[calc(72vh-5rem)] overflow-auto">
                 <ul className="space-y-2">
                   {filteredViews.map((v, i) => {
@@ -153,9 +164,7 @@ export default function APIs() {
             ) : (
               <div className="flex flex-col items-center justify-start text-center space-y-3 mt-16">
                 <div className="flex items-center space-x-3 text-lg font-semibold text-gray-800">
-                  <span role="img" aria-label="pin" className="text-xl">
-                    📌
-                  </span>
+                  <span role="img" aria-label="pin" className="text-xl">📌</span>
                   <span>Quick Pin</span>
                   <span className="text-gray-400 text-xl">⋯</span>
                 </div>
@@ -168,6 +177,9 @@ export default function APIs() {
           </main>
         </div>
       </div>
+
+      {/* ✅ ChatBot Modal */}
+      <ChatBot isOpen={chatOpen} onClose={() => setChatOpen(false)} />
     </section>
   );
 }
