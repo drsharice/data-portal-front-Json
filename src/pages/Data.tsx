@@ -17,7 +17,7 @@ interface Preview {
 const mockBase = `${import.meta.env.BASE_URL}mock`;
 
 export default function Data() {
-  useTitle("Data | Data Portal");
+  useTitle("Data Edge | Data");
 
   const [views, setViews] = useState<Dataset[]>([]);
   const [q, setQ] = useState("");
@@ -28,6 +28,20 @@ export default function Data() {
   const [pinned, setPinned] = useState<string[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);   // ✅ chat state
+
+  // ✅ Dynamic container color
+  const [containerColor, setContainerColor] = useState(
+    localStorage.getItem("dataBackgroundColor") || "white"
+  );
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newColor = localStorage.getItem("dataBackgroundColor") || "white";
+      setContainerColor(newColor);
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   useEffect(() => {
     fetch(`${mockBase}/sources.json`)
@@ -98,9 +112,27 @@ export default function Data() {
 
   return (
     <section className="min-h-screen bg-brand-black text-white pt-24 px-4 md:px-8 relative">
-      <div className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl
-                      bg-white text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8 relative">
-
+    
+      {/* ✅ Inner container color dynamic */}
+      <div
+        className="mx-auto w-full max-w-[1400px] min-h-[72vh] rounded-2xl
+                    text-gray-900 shadow-2xl ring-1 ring-gray-200 p-4 md:p-8 relative
+                    transition-colors duration-500"
+          style={
+        containerColor === "diagonal"
+          ? { background: "linear-gradient(135deg, #ef4444 0%, #facc15 100%)" }
+          : containerColor === "focus"
+          ? { background: "radial-gradient(circle at center, #000000 0%, #ef4444 100%)" }
+          : containerColor === "fusion"
+          ? { background: "linear-gradient(90deg, #facc15, #ef4444, #000000)" }
+          : containerColor === "stripe"
+          ? {
+              backgroundImage:
+                "repeating-linear-gradient(45deg, #ef4444, #ef4444 20px, #facc15 20px, #facc15 40px, #000000 40px, #000000 60px)",
+            }
+          : { backgroundColor: containerColor }
+      }
+      >
         {/* ✅ Chat trigger button */}
         <button
           onClick={() => setChatOpen(true)}

@@ -15,7 +15,7 @@ interface APIView {
 const mockBase = `${import.meta.env.BASE_URL}mock`;
 
 export default function APIs() {
-  useTitle("APIs | Data Portal");
+  useTitle("Data Edge | APIs  ");
 
   const [views, setViews] = useState<APIView[]>([]);
   const [q, setQ] = useState("");

@@ -13,7 +13,7 @@ interface Report {
 const mockBase = `${import.meta.env.BASE_URL}mock`;
 
 export default function Analytics() {
-  useTitle("Reports | Data Portal");
+  useTitle("Data Edge | Reports");
 
   const [reports, setReports] = useState<Report[]>([]);
   const [q, setQ] = useState("");

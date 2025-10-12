@@ -4,7 +4,7 @@ import ValueProp from "../components/ValueProp";
 import Portfolio from "../components/Portfolio";
 
 export default function Home() {
-  useTitle("Home | Data Portal");
+  useTitle("Data Edge");
   return (
     <>
       <Hero />

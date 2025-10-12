@@ -9,6 +9,8 @@ import Catalog from "./pages/Catalog";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
+import Settings from "./pages/Settings";
+
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/settings" element={<Settings />} />
+
 
       </Routes>
 

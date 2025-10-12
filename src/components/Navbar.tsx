@@ -3,6 +3,7 @@ import GlobalSearch from "./GlobalSearch";
 import { useState } from "react";
 import LogoE from "../assets/logo-e-red.png";
 
+
 function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -86,17 +87,25 @@ function Navbar() {
             Welcome, Guest ▾
           </button>
 
-          {open && (
-            <div className="absolute right-0 top-full mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black/10">
-              <Link
-                to="/contact"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                onClick={() => setOpen(false)}
-              >
-                Contact Us
-              </Link>
-            </div>
-          )}
+         {open && (
+  <div className="absolute right-0 top-full mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black/10">
+    <Link
+      to="/settings"
+      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Settings
+    </Link>
+    <Link
+      to="/contact"
+      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Contact Us
+    </Link>
+  </div>
+)}
+
         </div>
       </div>
     </nav>

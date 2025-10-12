@@ -27,7 +27,7 @@ interface CatalogItem {
 type CatalogType = "data" | "api" | "report";
 
 export default function Catalog() {
-  useTitle("Catalog | Data Portal");
+  useTitle("Data Edge | Catalog");
 
   const [datasets, setDatasets] = useState<CatalogItem[]>([]);
   const [apis, setApis] = useState<CatalogItem[]>([]);
