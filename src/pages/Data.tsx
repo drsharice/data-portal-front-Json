@@ -25,7 +25,14 @@ export default function Data() {
   const [preview, setPreview] = useState<Preview | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [pinned, setPinned] = useState<string[]>([]);
+  const [pinned, setPinned] = useState<string[]>(() => {
+  const saved = localStorage.getItem("pinnedDatasets");
+  return saved ? JSON.parse(saved) : [];
+});
+useEffect(() => {
+  localStorage.setItem("pinnedDatasets", JSON.stringify(pinned));
+}, [pinned]);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);   // ✅ chat state
 
@@ -136,9 +143,10 @@ export default function Data() {
         {/* ✅ Chat trigger button */}
         <button
           onClick={() => setChatOpen(true)}
-          className="absolute top-6 right-8 flex items-center gap-2
-                     bg-yellow-400 text-black font-semibold px-3 py-2 rounded-lg
-                     shadow hover:bg-yellow-300 transition"
+          className="absolute top-9 right-16 z-50 flex items-center gap-2
+             bg-gradient-to-r from-yellow-400 to-yellow-300 text-black font-semibold
+             px-3 py-2 rounded-lg shadow-md hover:brightness-105 hover:-translate-y-[1px]
+             transition-all duration-200"
           title="Chat with Dedge"
         >
           <img src={logoEBlack} alt="Dedge Logo" className="w-5 h-5" />
@@ -146,16 +154,17 @@ export default function Data() {
         </button>
 
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-gray-200 pb-4">
-          <p className="text-sm text-gray-600 mt-2">
+        <div className="flex items-start justify-between border-b border-gray-200
+                bg-white rounded-t-2xl px-8 pt-3 pb-4 shadow-sm relative z-30">
+          <p className="text-sm text-gray-700 mt-2">
             Looking for more datasets?{" "}
             <Link to="/catalog" className="text-red-600 hover:underline">
               Explore our catalog
             </Link>{" "}
             and submit a request.
           </p>
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <h2 className="text-2xl font-semibold text-gray-900">
+          <div className="absolute top-3 left-1/2 transform -translate-x-1/2">
+            <h2 className="text-xl font-semibold text-center text-gray-900">
               View Your Available Datasets
             </h2>
           </div>
@@ -166,7 +175,9 @@ export default function Data() {
           <button
             type="button"
             onClick={() => { setSelected(null); setQ(""); }}
-            className={`text-sm font-semibold tracking-wide uppercase transition ${
+            className={`text-sm font-semibold tracking-wide uppercase
+             bg-white/100 backdrop-blur-md border border-white/30
+             text-gray-900 px-3 py-1 rounded-md shadow-sm inline-block ${
               selected ? "text-red-600 hover:underline cursor-pointer"
                        : "text-gray-500 cursor-default"}`}
           >
@@ -208,7 +219,9 @@ export default function Data() {
           <div className="relative mr-4">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex items-center space-x-2 text-sm font-semibold text-gray-800"
+              className="flex items-center space-x-2 text-sm font-semibold text-gray-800
+             bg-white/100 backdrop-blur-md border border-white/30 px-3 py-1.5 rounded-lg
+             hover:shadow-md hover:-translate-y-[1px] transition-all duration-200"
             >
               <span role="img" aria-label="pin" className="text-base">📌</span>
               <span>Quick Pin</span>
@@ -251,7 +264,7 @@ export default function Data() {
             <aside className="col-span-12 md:col-span-3 md:pr-4
                                md:border-r md:border-gray-200">
               <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
-                Datasets
+                
               </h3>
               <div className="md:sticky md:top-28
                               md:h-[calc(72vh-5rem)] overflow-auto">
@@ -262,10 +275,11 @@ export default function Data() {
                       <li key={i}>
                         <button
                           onClick={() => setSelected(v)}
-                          className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
+                          className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium
+  border transition-all duration-300 ease-in-out transform focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2  ${
                             active
-                              ? "border-red-600 bg-red-50"
-                              : "border-gray-200 bg-white hover:bg-gray-50"
+                              ? "bg-gradient-to-r from-red-600 to-yellow-400 text-white shadow-md"
+                              : "bg-white text-gray-800 border-gray-200 hover:bg-gradient-to-r hover:from-yellow-50 hover:to-red-50 hover:text-black hover:shadow-lg hover:-translate-y-[2px]"
                           }`}
                         >
                           {v.label}
@@ -317,7 +331,9 @@ export default function Data() {
             {selected && (
               <div className="space-y-4">
                 <div className="flex items-end justify-between">
-                  <h2 className="m-0 text-xl font-semibold">
+                  <h2 className="m-0 text-xl font-semibold text-gray-900
+             bg-white/80 backdrop-blur-md border border-white/30
+             px-4 py-1.5 rounded-md shadow-sm inline-block">
                     {selected.label}
                   </h2>
                   <span className="text-xs text-gray-500">
