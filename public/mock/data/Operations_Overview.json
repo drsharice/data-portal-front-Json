@@ -1,0 +1,5 @@
+[
+  { "metric": "Production Efficiency", "value": "92%", "target": "90%" },
+  { "metric": "Downtime (hrs)", "value": 12, "target": 10 },
+  { "metric": "Throughput", "value": 14500, "target": 15000 }
+]

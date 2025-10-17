@@ -1,0 +1,5 @@
+[
+  { "department": "Engineering", "headcount": 45, "attrition": 2 },
+  { "department": "Finance", "headcount": 18, "attrition": 1 },
+  { "department": "HR", "headcount": 9, "attrition": 0 }
+]

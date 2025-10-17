@@ -16,5 +16,41 @@
     "lastUpdated": "2025-08-15",
     "popular": true,
     "type": "report"
+  },
+   {
+    "id": "it-software-report",
+    "name": "IT Software Inventory",
+    "category": "IT",
+    "description": "Comprehensive software inventory and license usage report by department.",
+    "lastUpdated": "2025-09-05",
+    "popular": false,
+    "type": "report"
+  },
+  {
+    "id": "finance-budget-report",
+    "name": "Finance Budget Report",
+    "category": "Finance",
+    "description": "Department budget allocation and expenditure summary for the current fiscal year.",
+    "lastUpdated": "2025-09-12",
+    "popular": true,
+    "type": "report"
+  },
+  {
+    "id": "operations-overview-report",
+    "name": "Operations Overview",
+    "category": "Operations",
+    "description": "Key operational KPIs including efficiency, downtime, and throughput metrics.",
+    "lastUpdated": "2025-09-18",
+    "popular": false,
+    "type": "report"
+  },
+  {
+    "id": "customer-feedback-report",
+    "name": "Customer Feedback Analysis",
+    "category": "Customer Insights",
+    "description": "Aggregated customer satisfaction trends and sentiment analysis from surveys.",
+    "lastUpdated": "2025-09-25",
+    "popular": true,
+    "type": "report"
   }
 ]

@@ -17,6 +17,24 @@
       "label": "IT Software Inventory",
       "description": "Sample IT Software Inventory report showing software usage by department.",
       "powerbi": "https://app.powerbi.com/groups/it"
+    },
+    {
+      "key": "HR_Headcount",
+      "label": "HR Headcount Report",
+      "description": "Monthly headcount and attrition details for HR reporting and workforce planning.",
+      "powerbi": "https://app.powerbi.com/groups/hr"
+    },
+    {
+      "key": "Operations_Overview",
+      "label": "Operations Overview",
+      "description": "Key operational KPIs including efficiency, downtime, and throughput metrics.",
+      "powerbi": "https://app.powerbi.com/groups/operations"
+    },
+    {
+      "key": "Customer_Feedback",
+      "label": "Customer Feedback Analysis",
+      "description": "Aggregated customer satisfaction trends and sentiment analysis from surveys.",
+      "powerbi": "https://app.powerbi.com/groups/customer"
     }
   ]
 }
