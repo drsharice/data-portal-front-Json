@@ -1,0 +1,5 @@
+[
+  { "region": "North America", "sales": 1250000, "target": 1200000, "variance": "+4%" },
+  { "region": "Europe", "sales": 980000, "target": 1000000, "variance": "-2%" },
+  { "region": "Asia-Pacific", "sales": 1420000, "target": 1350000, "variance": "+5%" }
+]
