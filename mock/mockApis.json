@@ -16,5 +16,77 @@
     "lastUpdated": "2025-08-05",
     "popular": true,
     "type": "api"
+  },
+  {
+    "id": "rightfax-api",
+    "name": "Rightfax Users",
+    "category": "Communications",
+    "description": "Endpoints for Rightfax user data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "finance-budget-api",
+    "name": "Finance Budget",
+    "category": "Finance",
+    "description": "Endpoints for financial budget data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "activecomputers-api",
+    "name": "Active Directory Computers",
+    "category": "Directory Services",
+    "description": "Endpoints for AD computer data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "activegroups-api",
+    "name": "Active Directory Groups",
+    "category": "Directory Services",
+    "description": "Endpoints for AD group data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "computer-hardware-api",
+    "name": "Computer Hardware",
+    "category": "IT Assets",
+    "description": "Endpoints for computer hardware inventory",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "it-software-api",
+    "name": "IT Software",
+    "category": "IT Assets",
+    "description": "Endpoints for IT software inventory",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "occ-api",
+    "name": "OCC Unified Patching Report",
+    "category": "Compliance",
+    "description": "Endpoints for OCC patching compliance data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
+  },
+  {
+    "id": "user-entitlements-api",
+    "name": "User Entitlements",
+    "category": "Access Control",
+    "description": "Endpoints for user entitlement data",
+    "lastUpdated": "2025-10-16",
+    "popular": false,
+    "type": "api"
   }
 ]
