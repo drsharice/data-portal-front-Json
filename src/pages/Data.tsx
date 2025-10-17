@@ -253,6 +253,19 @@ useEffect(() => {
                     </li>
                   ))}
                 </ul>
+                <div className="border-t border-gray-200 p-2 text-right">
+  <button
+    onClick={() => {
+      setPinned([]);
+      localStorage.removeItem("pinnedDatasets");
+      setMenuOpen(false);
+    }}
+    className="text-xs text-red-600 hover:underline"
+  >
+    Clear All Pins
+  </button>
+</div>
+
               </div>
             )}
           </div>

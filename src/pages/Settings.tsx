@@ -74,6 +74,7 @@ export default function Settings() {
             >
               <optgroup label="Solid Colors">
                 <option value="gray">Gray</option>
+                <option value="black">Black</option>
                 <option value="white">White</option>
                 <option value="lightyellow">Light Yellow</option>
                 <option value="lightblue">Light Blue</option>
