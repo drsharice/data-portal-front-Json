@@ -177,7 +177,19 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen = false, onClose }) => {
   /** Init on open */
   useEffect(() => {
     if (isOpen) {
-      setMessages([{ sender: "bot", text: "👋 Hi Guest, I’m **Dedge**. How can I help you today?" }]);
+      setMessages([
+  {
+    sender: "bot",
+    text:
+      "👋 Hi Guest, I’m **Dedge** — your Data Concierge.<br>" +
+      "How can I help you today?<br><br>" +
+      "💡 For guidance, type **help**, or try:<br>" +
+      "• 'What datasets do I have access to?'<br>" +
+      "• 'Show me Finance Budget'<br>" +
+      "• 'List HR Employees fields'",
+  },
+]);
+
       setLastDatasetKey(null);
       setLastFetchPath(null);
       setSuggestedField(null);

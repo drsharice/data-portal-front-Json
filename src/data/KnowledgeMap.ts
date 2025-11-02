@@ -160,3 +160,8 @@ export const KnowledgeMap = {
 };
 
 export type DatasetKey = keyof typeof KnowledgeMap.accessible;
+
+/** Utility: returns dataset keys user has access to */
+export function accessibleKeys(): string[] {
+  return Object.keys(KnowledgeMap.accessible);
+}
